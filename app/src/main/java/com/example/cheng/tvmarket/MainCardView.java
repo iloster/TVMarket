@@ -51,7 +51,7 @@ public class MainCardView extends RecyclerView.Adapter {
         }
         viewHolder.nameTxt.setText(itemBeans.get(position).getApkName().toString());
         viewHolder.authorTxt.setText("备注: "+itemBeans.get(position).getApkAuthor());
-        viewHolder.sizeTxt.setText("大小: "+itemBeans.get(position).getApkSize()/(1024*2014) + "M");
+        viewHolder.sizeTxt.setText("大小: "+itemBeans.get(position).getApkSize()/(1024*1024) + "M");
         viewHolder.dataTxt.setText("日期: " + itemBeans.get(position).getApkDate());
 
         final MyViewHolder finalViewHolder = viewHolder;
@@ -61,7 +61,13 @@ public class MainCardView extends RecyclerView.Adapter {
                 LogUtils.v(TAG, "id:" + itemBeans.get(position).getApkName().toString());
                 finalViewHolder.downloadBtn.setVisibility(View.INVISIBLE);
                 finalViewHolder.progress.setVisibility(View.VISIBLE);
-                String dir = Environment.getExternalStorageDirectory().getPath() + "/" + context.getPackageName();
+                //如果没有sdcard
+                String dir;
+                if(FileUtils.getSDCardStatus()) {
+                    dir = Environment.getExternalStorageDirectory().getPath() + "/" + context.getPackageName()+"/files";
+                }else {
+                    dir = context.getFilesDir().toString();
+                }
                 String path = "";
                 if (FileUtils.createDir(dir)) {
                     path = dir + "/" + itemBeans.get(position).getApkName().toString();

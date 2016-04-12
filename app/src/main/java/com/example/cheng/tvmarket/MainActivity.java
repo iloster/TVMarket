@@ -1,5 +1,6 @@
 package com.example.cheng.tvmarket;
 
+import android.content.res.Configuration;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.cheng.bean.ItemBean;
 import com.example.cheng.http.CallBack;
@@ -90,7 +92,7 @@ public class MainActivity extends ActionBarActivity implements IMainView{
         if(itemBeans.size()==0){
             showError();
         }else {
-            mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             MainCardView cardView = new MainCardView(this, itemBeans);
             mRecyclerView.setAdapter(cardView);
         }
@@ -109,5 +111,18 @@ public class MainActivity extends ActionBarActivity implements IMainView{
         mLoading.setVisibility(View.INVISIBLE);
         mRecyclerView.setVisibility(View.INVISIBLE);
         mErrorLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        Toast.makeText(this,"ddd",Toast.LENGTH_LONG).show();
+        if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
+            //横屏
+            mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
+        }else{
+            //竖屏
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        }
     }
 }

@@ -15,7 +15,7 @@ public class FileUtils {
      *
      * @return true:表示有sdcard  false:表示没有sdcard
      */
-    public boolean getSDCardStatus(){
+    public static boolean getSDCardStatus(){
         if(Environment.getExternalStorageDirectory().equals(Environment.MEDIA_MOUNTED)){
             return true;
         }
