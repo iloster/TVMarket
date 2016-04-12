@@ -36,14 +36,21 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:weightSum="10">
-                <TextView android:text="TVGames-世博云"
+                <com.example.cheng.view.MyTextView
+                    android:text="TVGames-世博云"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="7.5"
                     android:layout_margin="2.5dip"
                     android:textColor="#212121"
                     android:textSize="18sp"
-                    android:id="@+id/nameTxt"/>
+                    android:ellipsize="marquee"
+                    android:singleLine="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:scrollHorizontally="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:id="@+id/nameTxt" />
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_weight="2.5"
