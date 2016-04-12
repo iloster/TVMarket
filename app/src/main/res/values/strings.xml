@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">TVMarket</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_refresh">refresh</string>
+    <string name="Complete">complete</string>
+    <string name="Error">Error</string>
+    <string name="Upload">Upload</string>
+</resources>

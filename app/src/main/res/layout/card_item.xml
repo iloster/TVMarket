@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="4dp"
+    android:background="#FFFFFF"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2.5"
+            android:gravity="center">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/iconImg"
+                android:background="@drawable/ic_launcher"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7.5"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="2.5dip">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="10">
+                <TextView android:text="TVGames-世博云"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7.5"
+                    android:layout_margin="2.5dip"
+                    android:textColor="#212121"
+                    android:textSize="18sp"
+                    android:id="@+id/nameTxt"/>
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="2.5"
+                    android:layout_height="wrap_content">
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="下载"
+                        android:textSize="14sp"
+                        android:id="@+id/downloadBtn"/>
+                    <com.example.cheng.view.CircleProgressBar
+                        android:layout_width="40dip"
+                        android:layout_height="40dip"
+                        android:id="@+id/progress"
+                        android:layout_centerInParent="true"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="1dip"
+                android:textColor="#727272"
+                android:id="@+id/sizeTxt"
+                android:text="大   小:100M"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/dataTxt"
+                android:layout_margin="1dip"
+                android:text="日   期:2016-04-01 11:42"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/authorTxt"
+                android:layout_margin="1dip"
+                android:text="李成 2016-04-01 11:42"/>
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>
