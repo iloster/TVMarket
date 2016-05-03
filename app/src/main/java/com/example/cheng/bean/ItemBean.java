@@ -10,7 +10,9 @@ public class ItemBean {
     private String apkDate;      //上传时间
     private String apkAuthor = "";    //上传人
     private String apkUrl = "";     //下载链接
+    private String apkMd5=""; //apk的md5值
     private long apkSize;
+    private boolean apkStatus;
     public void setIconUrl(String iconurl){
         this.iconurl = iconurl;
     }
@@ -55,5 +57,18 @@ public class ItemBean {
     }
     public long getApkSize(){
         return this.apkSize;
+    }
+    public void setApkMd5(String apkMd5){
+        this.apkMd5 = apkMd5;
+    }
+    public String getApkMd5(){
+        return this.apkMd5;
+    }
+
+    public void setApkStatus(boolean apkStatus){
+        this.apkStatus = apkStatus;
+    }
+    public boolean getApkStatus(){
+        return this.apkStatus;
     }
 }

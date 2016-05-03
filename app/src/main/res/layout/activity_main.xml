@@ -1,13 +1,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:id="@+id/mainRelativeLayout">
     <!--<ListView-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="match_parent"-->
@@ -18,8 +18,9 @@
         <!--android:id="@+id/listView">-->
     <!--</ListView>-->
     <android.support.v7.widget.RecyclerView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusable="true"
         android:id="@+id/recyclerView">
     </android.support.v7.widget.RecyclerView>
     <com.gc.materialdesign.views.ProgressBarCircularIndeterminate
@@ -39,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:id="@+id/sadImg"
-            android:src="@mipmap/ic_sentiment_dissatisfied_white_48dp"/>
+            android:src="@mipmap/ic_sentiment_dissatisfied_black_48dp"/>
         <TextView
             android:layout_below="@id/sadImg"
             android:layout_width="wrap_content"

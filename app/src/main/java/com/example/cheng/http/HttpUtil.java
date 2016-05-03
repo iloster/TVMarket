@@ -4,11 +4,8 @@ package com.example.cheng.http;
 
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Message;
 import android.util.Log;
 
-import com.example.cheng.bean.HttpBean;
-import com.example.cheng.bean.MainBean;
 import com.example.cheng.config.Constant;
 import com.example.cheng.utils.LogUtils;
 import com.google.gson.Gson;
@@ -17,8 +14,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -106,7 +101,7 @@ public class HttpUtil {
                 .build();
         final CallBack mCallBack = callback;
 
-        mOkHttpClient.newCall(request).enqueue(new okhttp3.Callback() {
+        mOkHttpClient.newCall(request).enqueue(new Callback() {
 
             @Override
             public void onFailure(Call call, IOException e) {
@@ -134,7 +129,7 @@ public class HttpUtil {
         Request request = new Request.Builder().url(url).build();
         final String mPath = path;
         final DownloadCallBack mCallBack = callBack;
-        mOkHttpClient.newCall(request).enqueue(new okhttp3.Callback(){
+        mOkHttpClient.newCall(request).enqueue(new Callback(){
 
             @Override
             public void onFailure(Call call, IOException e) {
@@ -174,7 +169,7 @@ public class HttpUtil {
         mDelivery.post(new Runnable() {
             @Override
             public void run() {
-                LogUtils.v(TAG,"ret:error");
+                LogUtils.v(TAG, "ret:error");
                 callback.onError();
             }
         });

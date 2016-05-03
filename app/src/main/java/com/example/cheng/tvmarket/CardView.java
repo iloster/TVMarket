@@ -2,32 +2,25 @@ package com.example.cheng.tvmarket;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dd.CircularProgressButton;
 import com.example.cheng.bean.ItemBean;
 import com.example.cheng.http.DownloadCallBack;
 import com.example.cheng.http.HttpUtil;
 import com.example.cheng.utils.FileUtils;
 import com.example.cheng.utils.LogUtils;
 import com.example.cheng.view.CircleProgressBar;
-import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 /**

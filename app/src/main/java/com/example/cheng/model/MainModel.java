@@ -2,13 +2,6 @@ package com.example.cheng.model;
 
 import com.example.cheng.http.CallBack;
 import com.example.cheng.http.HttpUtil;
-import com.example.cheng.presenter.MainPresenter;
-import com.example.cheng.utils.LogUtils;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Objects;
 
 /**
  * Created by cheng on 16/4/2.

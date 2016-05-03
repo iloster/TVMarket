@@ -1,7 +1,5 @@
 package com.example.cheng.bean;
 
-import java.util.List;
-
 /**
  * Created by cheng on 16/4/2.
  */

@@ -1,17 +1,11 @@
 package com.example.cheng.presenter;
 
-import android.widget.ImageView;
-
-import com.example.cheng.bean.HttpBean;
-import com.example.cheng.bean.ItemBean;
 import com.example.cheng.bean.MainBean;
 import com.example.cheng.model.MainModel;
 import com.example.cheng.model.MainPresenterListener;
 import com.example.cheng.tvmarket.IMainView;
 import com.example.cheng.utils.LogUtils;
 import com.google.gson.Gson;
-
-import java.util.List;
 
 /**
  * Created by cheng on 16/4/2.
@@ -30,7 +24,7 @@ public class MainPresenter {
         mMainModel.loadData(new MainPresenterListener() {
             @Override
             public void onError() {
-
+                mMainView.showError();
             }
 
             @Override

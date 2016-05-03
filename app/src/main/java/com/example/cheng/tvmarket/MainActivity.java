@@ -1,13 +1,16 @@
 package com.example.cheng.tvmarket;
 
+import android.app.ActionBar;
 import android.content.res.Configuration;
-import android.os.Environment;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.FocusFinder;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,35 +20,33 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.cheng.bean.ItemBean;
-import com.example.cheng.http.CallBack;
-import com.example.cheng.http.DownloadCallBack;
-import com.example.cheng.http.HttpUtil;
 import com.example.cheng.presenter.MainPresenter;
 import com.example.cheng.utils.LogUtils;
+import com.example.cheng.utils.NetUtils;
 import com.gc.materialdesign.views.ProgressBarCircularIndeterminate;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.List;
+import java.util.Map;
 
 
-public class MainActivity extends ActionBarActivity implements IMainView{
+public class MainActivity extends AppCompatActivity implements IMainView{
 
     private String TAG = "MainActivity";
     ///控件
     private ListView mListView;
     private ProgressBarCircularIndeterminate mLoading; //loading控件
     private RecyclerView mRecyclerView;
-    private RelativeLayout mErrorLayout;
+    private RelativeLayout mErrorLayout,mMainLayout;
 
     private MainPresenter mainPresenter;
+    private MainCardView mMainCardView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setIcon(R.mipmap.icon);
         findViews();
-        mainPresenter = new MainPresenter(this);
         init();
     }
 
@@ -54,6 +55,7 @@ public class MainActivity extends ActionBarActivity implements IMainView{
         mLoading = (ProgressBarCircularIndeterminate)findViewById(R.id.loading);
         mRecyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         mErrorLayout = (RelativeLayout)findViewById(R.id.errorLayout);
+        mMainLayout = (RelativeLayout)findViewById(R.id.mainRelativeLayout);
     }
 
     @Override
@@ -63,9 +65,13 @@ public class MainActivity extends ActionBarActivity implements IMainView{
         return true;
     }
 
+
     private void init(){
+        showActionBar();
+        mainPresenter = new MainPresenter(this);
         mainPresenter.showLoading();
         mainPresenter.showList();
+
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -83,6 +89,27 @@ public class MainActivity extends ActionBarActivity implements IMainView{
         return super.onOptionsItemSelected(item);
     }
 
+    public void showActionBar() {
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setIcon(R.drawable.tv);
+//        View titleView = LayoutInflater.from(this).inflate(R.layout.activity_main_titile,null);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setCustomView(R.layout.activity_main_titile);
+        View view = actionBar.getCustomView();
+        TextView ssidTxt = (TextView)view.findViewById(R.id.ssidTxt);
+        TextView ipTxt = (TextView)view.findViewById(R.id.ipTxt);
+        Map<String,String> map = NetUtils.getWifiInfo(this);
+        if(map.size()>0){
+            ssidTxt.setText(map.get("ssid").toString());
+            ipTxt.setText(map.get("ip").toString());
+        }else{
+            ssidTxt.setText("未连接网络");
+        }
+
+    }
+
     @Override
     public void showList(List<ItemBean> itemBeans) {
         mLoading.setVisibility(View.INVISIBLE);
@@ -92,9 +119,14 @@ public class MainActivity extends ActionBarActivity implements IMainView{
         if(itemBeans.size()==0){
             showError();
         }else {
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-            MainCardView cardView = new MainCardView(this, itemBeans);
-            mRecyclerView.setAdapter(cardView);
+            if(isScreenChange()){
+                mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
+            }else{
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+            }
+
+            mMainCardView = new MainCardView(this, itemBeans);
+            mRecyclerView.setAdapter(mMainCardView);
         }
 
     }
@@ -113,10 +145,21 @@ public class MainActivity extends ActionBarActivity implements IMainView{
         mErrorLayout.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * true 为横屏
+     * false 为竖屏
+     * @return
+     */
+    public boolean isScreenChange(){
+        Configuration configuration = this.getResources().getConfiguration();
+        if(configuration.orientation == Configuration.ORIENTATION_LANDSCAPE){
+            return true;
+        }
+        return false;
+    }
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        Toast.makeText(this,"ddd",Toast.LENGTH_LONG).show();
         if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
             //横屏
             mRecyclerView.setLayoutManager(new GridLayoutManager(this,2));
@@ -124,5 +167,23 @@ public class MainActivity extends ActionBarActivity implements IMainView{
             //竖屏
             mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        View view = mMainLayout.findFocus();
+        int downId = mMainLayout.getNextFocusDownId();
+        int upId = mMainLayout.getNextFocusUpId();
+        int leftId = mMainLayout.getNextFocusDownId();
+        int rightId = mMainLayout.getNextFocusRightId();
+        View view1= null;
+        if(view == null || view.getId() == R.id.recyclerView){
+            view1 = mRecyclerView.getChildAt(0);
+            if(view1!=null)
+                view1.requestFocus();
+        }
+
+
+        return super.onKeyDown(keyCode, event);
     }
 }
